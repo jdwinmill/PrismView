@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Templates@index');
+
+Route::get('/creativeEngine', 'Templates@index');

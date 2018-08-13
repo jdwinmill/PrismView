@@ -36,64 +36,64 @@
 </head>
 <body>
 
-    <div class="container is-fluid">
-        <h1 class="title">Creative Engine Template</h1>
+<div class="container is-fluid">
+    <h1 class="title">Creative Engine Template</h1>
 
 
 
-        <div id="app">
-            <div class="columns">
-                <div class="column is-one-fifth">
-                    <h3 class="subtitle">Create New Template</h3>
-                    <form id="newTemplateForm" @submit.prevent="handleSubmit">
-                        <label>Name</label>
-                        <input class="input is-rounded" type="text" id="templateTitle"  name="templateTitle" value="" v-model="newTemplate.title">
-                        <br><br>
-                        <label>Description</label>
-                        <input class="input is-rounded" type="text" id="templateDescription"  name="templateDescription" value="" v-model="newTemplate.description">
-                        <br><br>
-                        <label>Category</label><br>
+    <div id="app">
+        <div class="columns">
+            <div class="column is-one-fifth">
+                <h3 class="subtitle">Create New Template</h3>
+                <form id="newTemplateForm" @submit.prevent="handleSubmit">
+                    <label>Name</label>
+                    <input class="input is-rounded" type="text" id="templateTitle"  name="templateTitle" value="" v-model="newTemplate.title">
+                    <br><br>
+                    <label>Description</label>
+                    <input class="input is-rounded" type="text" id="templateDescription"  name="templateDescription" value="" v-model="newTemplate.description">
+                    <br><br>
+                    <label>Category</label><br>
 
-                        <select class="select is-multiple" v-model="newTemplate.categories" multiple size="8">
-                            <option v-for="filter in filterCategories" v-bind:value="filter.id" multiple size="8">@{{ filter.name }}</option>
-                        </select>
+                    <select class="select is-multiple" v-model="newTemplate.categories" multiple size="8">
+                        <option v-for="filter in filterCategories" v-bind:value="filter.id" multiple size="8">@{{ filter.name }}</option>
+                    </select>
 
-                        <br><br>
-                        <button class="button is-rounded is-info" >Create</button>
-                    </form>
-<hr>
-<br>
-                        <div>
-                            <h3 class="subtitle">Filter Categories</h3>
-                            <span v-for="category in filterCategories">
+                    <br><br>
+                    <button class="button is-rounded is-info" >Create</button>
+                </form>
+                <hr>
+                <br>
+                <div>
+                    <h3 class="subtitle">Filter Categories</h3>
+                    <span v-for="category in filterCategories">
                                 <button class="button is-rounded is-small filterButton" v-bind:id="category.name"  @click="categoryFilterController(category.id, category.name)">@{{ category.name }}</button>
                             </span>
-                        </div>
-
-
                 </div>
 
-                <div class="column is-two-thirds">
-                        <div class="container">
-                            <div class="template-container" v-for="template in templates">
-                                <div class=\"img\">
-                                    <img src="https://bulma.io/images/placeholders/640x480.png">
-                                </div>
-                                <div class="template-info">
-                                    <p>@{{ template.title }}</p><br>
-                                    <button class="button is-info"> Customize</button>
-                                </div>
-                            </div>
-                        </div>
 
-                </div>
             </div>
 
+            <div class="column is-two-thirds">
+                <div class="container">
+                    <div class="template-container" v-for="template in templates">
+                        <div class=\"img\">
+                            <img src="https://bulma.io/images/placeholders/640x480.png">
+                        </div>
+                        <div class="template-info">
+                            <p>@{{ template.title }}</p><br>
+                            <button class="button is-info"> Customize</button>
+                        </div>
+                    </div>
+                </div>
 
-
-
+            </div>
         </div>
+
+
+
+
     </div>
+</div>
 
 
 
@@ -205,7 +205,8 @@
              *
              */
             getAllTemplates: function () {
-                let url = '/api/templates';
+                //let url = '/api/templates';
+                let url = '/templates';
 
                 axios.get(url).then(response => {
                     this.templates = response.data
@@ -217,7 +218,8 @@
              *
              */
             getAllCategories: function () {
-                let url = '/api/categories';
+                //let url = '/api/categories';
+                let url = '/categories';
 
                 axios.get(url).then(response => {
                     this.filterCategories = response.data
@@ -232,7 +234,8 @@
              * @param {string} categories
              */
             createNewTemplate: function (title, description, categories) {
-                axios.post('/api/templates',{title: title, description: description, categories: categories})
+
+                axios.post('/templates',{title: title, description: description, categories: categories})
                     .then(function (response) {
                         return response;
                     })
@@ -243,7 +246,7 @@
              *
              */
             getTemplatesByCategoryIds: function () {
-                let url = '/api/templates/'+ JSON.stringify(this.categoryFilter);
+                let url = '/templates/byCategories/'+ JSON.stringify(this.categoryFilter);
 
                 axios.get(url).then(response => {
                     this.templates = response.data

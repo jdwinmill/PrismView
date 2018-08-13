@@ -14,3 +14,11 @@
 Route::get('/', 'Templates@index');
 
 Route::get('/creativeEngine', 'Templates@index');
+
+Route::get('/categories', 'CategoryController@index');
+
+Route::get('/templates', 'TemplateController@index');
+
+Route::get('/templates/byCategories/{ids}', 'TemplateController@show');
+
+Route::post('/templates', 'TemplateController@store');

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -8,16 +8,16 @@ use App\Categories;
 
 class CategoryController extends Controller
 {
-    /***
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $templates = Categories::get();
+        $categories = Categories::get();
 
-        return $templates;
+        return $categories->toJson(JSON_PRETTY_PRINT);
     }
 
     /**
